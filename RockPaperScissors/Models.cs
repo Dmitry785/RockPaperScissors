@@ -43,6 +43,15 @@ namespace RockPaperScissors
             return BattleResult.Draw;
         }
     }
+    public static class ItemGenerator
+    {
+        public static Item Generate()
+        {
+            int randow = Random.Shared.Next(3);
+            return (randow == 0) ? new Rock() :
+                (randow == 1) ? new Paper() : new Scissors();
+        }
+    }
     public enum BattleResult
     {
         Win,
