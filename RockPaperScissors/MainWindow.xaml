@@ -7,6 +7,55 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock Text="Rock Paper Scissors" 
+                       TextAlignment="Center" VerticalAlignment="Center"
+                       FontSize="32px"
+                       FontWeight="Black"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="{Binding CurrentItemImagePath}"/>
+            <Image Source="{Binding BattleVersusImagePath}"/>
+            <Image Source="{Binding OpponentItemImagePath}"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <TextBlock Text="{Binding BattleResult}"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Style>
+            </Grid.Resources>
+            <Button Content="Rock" Grid.Column="0" 
+                    Command="{Binding ChooseRockCommand}" 
+                    IsEnabled="{Binding IsNoBattleRightNow}"
+                    CommandParameter="rock"/>
+            <Button Content="Paper" Grid.Column="1" 
+                    Command="{Binding ChoosePaperCommand}"
+                    IsEnabled="{Binding IsNoBattleRightNow}"
+                    CommandParameter="paper"/>
+            <Button Content="Scissors" Grid.Column="2"
+                    Command="{Binding ChooseScissorsCommand}"
+                    IsEnabled="{Binding IsNoBattleRightNow}"
+                    CommandParameter="scissors"/>
+        </Grid>
     </Grid>
 </Window>

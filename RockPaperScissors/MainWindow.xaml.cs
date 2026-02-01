@@ -16,6 +16,7 @@ namespace RockPaperScissors
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new RockPaperScissorsViewModel();
         }
     }
 }
