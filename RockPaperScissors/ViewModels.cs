@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace RockPaperScissors
 {
@@ -92,13 +93,26 @@ namespace RockPaperScissors
         {
             if (!IsNoBattleRightNow)
                 return;
+            CurrentItemImagePath = string.Empty;
+            BattleVersusImagePath = string.Empty;
+            OpponentItemImagePath = string.Empty;
             BattleResult = string.Empty;
             IsNoBattleRightNow = false;
+            CurrentItemImagePath = CacheManager.GetImagePathByItem(item);
             var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
             try
             {
-                BattleResult res = await Task.Run(() => RunBattleTask(item), cts.Token);
+                BattleVersusImagePath = CacheManager.GetBattleVersusImagePath_Battle();
+                Item opponentItem = await Task.Run(() => GetOpponentMove(), cts.Token);
+                var res = item.Battle(opponentItem);
                 BattleResult = res.ToString();
+                OpponentItemImagePath = CacheManager.GetImagePathByItem(opponentItem);
+                if (res is RockPaperScissors.BattleResult.Draw)
+                    BattleVersusImagePath = CacheManager.GetBattleVersusImagePath_Draw();
+                else if (res is RockPaperScissors.BattleResult.Win)
+                    BattleVersusImagePath = CacheManager.GetBattleVersusImagePath_Win();
+                else
+                    BattleVersusImagePath = CacheManager.GetBattleVersusImagePath_Fail();
             }
             catch
             {
@@ -106,13 +120,14 @@ namespace RockPaperScissors
             }
             IsNoBattleRightNow = true;
         }
-        private BattleResult RunBattleTask(Item item)
+        private Item GetOpponentMove()
         {
+            Task.Delay(1000).Wait();
             var opponentItem = ItemGenerator.Generate();
-            Task.Delay(1000);
-            return item.Battle(opponentItem);
+            return opponentItem;
         }
     }
+    #region Other
     public class Command : ICommand
     {
         public Action Execution { get; set; }
@@ -133,4 +148,5 @@ namespace RockPaperScissors
             Execution?.Invoke();
         }
     }
+    #endregion
 }

@@ -25,12 +25,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Source="{Binding CurrentItemImagePath}"/>
-            <Image Source="{Binding BattleVersusImagePath}"/>
-            <Image Source="{Binding OpponentItemImagePath}"/>
+            <Image Source="{Binding CurrentItemImagePath}" Grid.Column="0"/>
+            <Image Source="{Binding BattleVersusImagePath}" Grid.Column="1"/>
+            <Image Source="{Binding OpponentItemImagePath}" Grid.Column="2"/>
         </Grid>
         <Grid Grid.Row="2">
-            <TextBlock Text="{Binding BattleResult}"/>
+            <TextBlock Text="{Binding BattleResult}"
+                       FontSize="26"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>

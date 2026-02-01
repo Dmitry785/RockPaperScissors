@@ -20,6 +20,10 @@ namespace RockPaperScissors
                 return BattleResult.Win;
             return BattleResult.Draw;
         }
+        public override string ToString()
+        {
+            return "rock";
+        }
     }
     public class Paper : Item
     {
@@ -30,6 +34,10 @@ namespace RockPaperScissors
             if (item is Rock)
                 return BattleResult.Win;
             return BattleResult.Draw;
+        }
+        public override string ToString()
+        {
+            return "paper";
         }
     }
     public class Scissors : Item
@@ -42,6 +50,10 @@ namespace RockPaperScissors
                 return BattleResult.Win;
             return BattleResult.Draw;
         }
+        public override string ToString()
+        {
+            return "scissors";
+        }
     }
     public static class ItemGenerator
     {
@@ -52,6 +64,30 @@ namespace RockPaperScissors
                 (randow == 1) ? new Paper() : new Scissors();
         }
     }
+    public static class CacheManager
+    {
+        public static string GetImagePathByItem(Item item)
+        {
+            return $"images/{item}.png";
+        }
+        public static string GetBattleVersusImagePath_Battle()
+        {
+            return $"images/battle.png";
+        }
+        public static string GetBattleVersusImagePath_Draw()
+        {
+            return $"images/draw.png";
+        }
+        public static string GetBattleVersusImagePath_Fail()
+        {
+            return $"images/fail.png";
+        }
+        public static string GetBattleVersusImagePath_Win()
+        {
+            return $"images/win.png";
+        }
+    }
+
     public enum BattleResult
     {
         Win,
